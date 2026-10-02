@@ -1,12 +1,33 @@
 # LinkReview
 
-- Here we collect all the works that may be useful for writing our paper
-- We divide these works by topic in order to structure them
-
-> [!NOTE]
-> This review table will be updated, so it is not a final version.
-
 | Topic | Title | Year | Authors | Paper | Code | Summary |
 | :--- | :--- | :---: | :--- | :---: | :---: | :--- |
-| Topic #1 | Paper Title | Publishing Year | Author #1 et al. | [arXiv/DOI]() | [GitHub]() | Short summary to be inserted in the Related Work section |
-|  | TODO | TODO | TODO | TODO | TODO | TODO |
+| 1. Ego-motion and focus of expansion | The interpretation of a moving retinal image | 1980 | Longuet-Higgins, Prazdny | [DOI](https://doi.org/10.1098/rspb.1980.0057) | | Classical decomposition of the optical flow into translational and rotational parts; defines the focus of expansion as the image of the translation direction. |
+| 1. Ego-motion and focus of expansion | Fast, Robust, Continuous Monocular Egomotion Computation | 2016 | Jaegle et al. | [PDF](https://www.cis.upenn.edu/~kostas/mypub.dir/phillips16icra.pdf) | [GitHub](https://github.com/stephenphillips42/erl_egomotion) | Expected Residual Likelihood: confidence weights for noisy flow under the continuous structure-from-motion model with a small baseline. Open code, a candidate baseline. |
+| 1. Ego-motion and focus of expansion | FAITH: Fast iterative half-plane focus of expansion estimation using event-based optic flow | 2021 | Dinaux et al. | [arXiv](https://arxiv.org/abs/2102.12823) | | RANSAC-based FOE estimation from event flow, validated onboard; shows that the FOE is poorly observable where the flow vanishes near the FOE itself. |
+| 1. Ego-motion and focus of expansion | Nonlinear ego-motion estimation from optical flow for online control of a quadrotor UAV | 2015 | Grabe et al. | [PDF](https://rpg.ifi.uzh.ch/docs/IJRR15_Grabe.pdf) | | Scaled linear and angular velocity from flow, metric scale from the IMU; compares an EKF with a nonlinear observer. Closest in problem statement. |
+| 1. Ego-motion and focus of expansion | Tight Fusion of Events and Inertial Measurements for Direct Velocity Estimation | 2024 | Xu, Peng, Kneip | [arXiv](https://arxiv.org/abs/2401.09296) | | Estimates velocity directly (not pose) by tightly fusing events with inertial data; same idea of estimating kinematics without a map. |
+| 1. Ego-motion and focus of expansion | Direct Visual-Inertial Ego-Motion Estimation via Iterated Extended Kalman Filter | 2020 | Zhong, Chirarattananon | [arXiv](https://arxiv.org/abs/2001.05215) | | Photometric IEKF giving velocity, height and attitude from a monocular camera and IMU, 15–30x faster than full VIO. |
+| 1. Ego-motion and focus of expansion | Exploiting Feature Confidence for Forward Motion Estimation | 2017 | Lee, Yoon | [arXiv](https://arxiv.org/abs/1704.07145) | | VIO for forward motion with distant features; feature confidence is derived from the IMU. Matches the regime where the FOE is close to the image center. |
+| 2. Two-view geometry and degeneracy | An efficient solution to the five-point relative pose problem | 2004 | Nistér | [DOI](https://doi.org/10.1109/TPAMI.2004.17) | | Closed-form five-point solver for the essential matrix; the core of our vision-only pipeline (baseline B1). |
+| 2. Two-view geometry and degeneracy | Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography | 1981 | Fischler, Bolles | [DOI](https://doi.org/10.1145/358669.358692) | | RANSAC, the standard tool for rejecting gross outliers in correspondences. |
+| 2. Two-view geometry and degeneracy | Two-View Geometry Estimation Unaffected by a Dominant Plane | 2005 | Chum, Werner, Matas | [Link](https://mlanthology.org/cvpr/2005/chum2005cvpr-two/) | | Explains why RANSAC fails under a dominant plane; the theory behind degenerate frames. |
+| 2. Two-view geometry and degeneracy | Robust Real-Time Visual Odometry with a Single Camera and an IMU | 2011 | Kneip, Chli, Siegwart | [Link](https://bmva-archive.org.uk/bmvc/2011/proceedings/paper16/index.html) | | Monocular VO where the rotation comes from the gyroscope and only the translation direction is left to estimate. Candidate baseline B2. |
+| 2. Two-view geometry and degeneracy | 2-Point-based Outlier Rejection for Camera-IMU Systems with applications to Micro Aerial Vehicles | 2014 | Troiani et al. | [PDF](https://rpg.ifi.uzh.ch/docs/ICRA14_Troiani.pdf) | | Outlier rejection from two correspondences and the gyroscope; related to gating by gyro rotation. |
+| 3. Visual-inertial fusion | OpenVINS: A Research Platform for Visual-Inertial Estimation | 2020 | Geneva et al. | [DOI](https://doi.org/10.1109/ICRA40945.2020.9196524) | | MSCKF-based open platform with online calibration including the camera–IMU time offset. Candidate baseline B3. |
+| 4. Filtering on manifolds | Nonlinear Complementary Filters on the Special Orthogonal Group | 2008 | Mahony, Hamel, Pflimlin | [DOI](https://doi.org/10.1109/TAC.2008.923738) | | Theoretical basis of complementary filtering on SO(3); our filter is its analogue for a unit vector. |
+| 4. Filtering on manifolds | Directional Statistics and Filtering Using libDirectional | 2017 | Kurz et al. | [arXiv](https://arxiv.org/abs/1712.09718) | | Distributions (von Mises–Fisher, Bingham) and recursive filters on the unit sphere; a rigorous framework for filtering on S². |
+| 5. Learned measurement confidence | Learning to Find Good Correspondences | 2018 | Yi et al. | [arXiv](https://arxiv.org/abs/1711.05971) | [GitHub](https://github.com/vcg-uvic/learned-correspondence-release) | A network labels correspondences as inliers/outliers while recovering the essential matrix; a template for a learned inlier weight. |
+| 5. Learned measurement confidence | AirIMU: Learning Uncertainty Propagation for Inertial Odometry | 2023 | Qiu et al. | [arXiv](https://arxiv.org/abs/2310.04874) | | Jointly learns IMU noise correction and uncertainty; the template for "a network predicts how much to trust a sensor". |
+| 5. Learned measurement confidence | Statistical Uncertainty Learning for Robust Visual-Inertial State Estimation | 2025 | Choi et al. | [arXiv](https://arxiv.org/abs/2510.01648) | | Online measurement reliability learned with multi-view geometric consistency as self-supervision (no ground truth); evaluated on EuRoC. Preprint. |
+| 5. Learned measurement confidence | LBDU-VIO: Learned Bias Dynamics and Uncertainty for Visual-Inertial Odometry with Unreliable Vision | 2026 | Guo et al. | [arXiv](https://arxiv.org/abs/2609.39125) | | Neural measurement covariances under unreliable vision; EuRoC and TUM-VI. Very recent preprint. |
+| 6. Evaluation | A Tutorial on Quantitative Trajectory Evaluation for Visual(-Inertial) Odometry | 2018 | Zhang, Scaramuzza | [DOI](https://doi.org/10.1109/IROS.2018.8593941) | [GitHub](https://github.com/uzh-rpg/rpg_trajectory_evaluation) | Alignment and error metrics (ATE, relative error); we need an analogous angular metric for direction. |
+
+## Baselines
+
+| ID | Method | Sources | Note |
+| :---: | :--- | :--- | :--- |
+| B1 | Essential matrix + RANSAC, no smoothing, no IMU | Nistér, Fischler & Bolles | The raw channel of our pipeline; already implemented. |
+| B2 | Vision with rotation from the gyroscope | Kneip et al. 2011, Troiani et al. 2014 | Needs a reimplementation and camera–IMU extrinsics. |
+| B3 | OpenVINS | Geneva et al. 2020 | Needs raw accelerometer and gyroscope and a camera–IMU calibration; check that the logs contain them. |
+| (opt.) | ERL | Jaegle et al. 2016 | Flow-only, open code; an extra reference without the IMU. |
