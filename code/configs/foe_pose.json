@@ -1,0 +1,31 @@
+{
+  "resize_width": 640,
+  "frame_gap": 15,
+
+  "crop_width": 1200,
+  "crop_height": 900,
+  "intrinsics_path": "calibration_data_full.npz",
+
+  "max_corners": 1000,
+  "min_corners": 300,
+  "min_distance": 7,
+  "quality_level": 0.01,
+  "fb_thresh": 1.0,
+
+  "max_iters": 200,
+
+  "min_corr_points": 30,
+  "min_inliers": 20,
+
+  "step_max_deg": 40.0,
+
+  "blend": 0.5,
+  "ref_window": 90,
+  "inlier_ref_min": 60,
+
+  "sky_mask_enabled": true,
+  "attitude_shm_name": "uav_attitude_ring",
+  "camera_latency_s": 0.043,
+  "camera_mount_pitch_deg": -10.0,
+  "sky_margin_px": 0
+}

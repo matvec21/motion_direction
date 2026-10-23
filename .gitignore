@@ -172,3 +172,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# experiment outputs derived from non-public recordings
+code/results/dump_*.csv
+code/results/.effective_config.json

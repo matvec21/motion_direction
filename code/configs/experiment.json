@@ -1,0 +1,21 @@
+{
+  "video": "D:/Neural Networks/foe7/auc_21.08.26_sync.mp4",
+  "telemetry": "D:/Neural Networks/foe7/uav_descend_state_20260821_125426_sync.csv",
+  "foe_pose_config": "configs/foe_pose.json",
+  "windows": [
+    {"name": "tuning", "start": 60, "end": 160},
+    {"name": "validation", "start": 160, "end": 260}
+  ],
+  "fusion": {
+    "k_vis": 8.0,
+    "k_spd": 0.5,
+    "vision_lag": 0.0,
+    "speed_source": "ekf",
+    "gate": 45.0,
+    "meas_median": 5,
+    "use_accel": true,
+    "corr_max": 0.0
+  },
+  "results_dir": "results",
+  "figures_dir": "../slides/figs"
+}

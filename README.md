@@ -29,18 +29,15 @@
 
 ## Abstract
 
-We consider the problem of estimating the direction of motion of a moving object from a monocular onboard camera and inertial sensors. The translation direction is visible in the image as the focus of expansion and is usually recovered from the essential matrix of two frames. Such an estimate is noisy, lags behind after smoothing, and breaks down on degenerate frames: low parallax, a dominant plane, fast rotation. We combine the visual measurement with gyroscope and accelerometer data in a complementary filter on the unit sphere. The filter works in the body frame and does not use heading, which is unreliable in our recordings. We plan to add a learned estimate of the reliability of the visual measurement, which sets its weight in the filter. In a preliminary experiment on one recorded sequence, the gyroscope-based filter reduced the delay of the vision-only channel from about 350 ms to 30–130 ms at comparable jitter. The method will be compared with three baselines: a vision-only essential-matrix pipeline, vision with rotation taken from the gyroscope, and the visual-inertial odometry system OpenVINS.
+We consider the problem of estimating the direction of motion of a moving object from a monocular onboard camera and inertial sensors. The translation direction is visible in the image as the focus of expansion and is usually recovered from the essential matrix of two frames. Such an estimate is noisy, lags behind after smoothing, and breaks down on degenerate frames: low parallax, a dominant plane, fast rotation. We combine the visual measurement with gyroscope and accelerometer data in a complementary filter on the unit sphere. The filter works in the body frame and does not use heading, which is unreliable in our recordings. In experiments on one recorded sequence, split into a tuning window and a separate validation window, the filter reduces the delay of the vision-only channel from 333–367 ms and 567–633 ms to 67–200 ms and 0–133 ms respectively. Jitter is lower on the horizontal angle in both windows; on the vertical angle it is 12% higher on the tuning window and 26% lower on the validation window. We plan to add a learned estimate of the reliability of the visual measurement and to compare the method with three baselines: a vision-only essential-matrix pipeline, vision with rotation taken from the gyroscope, and the visual-inertial odometry system OpenVINS.
 
 ## Problem Statement
 
-**Input.** At each frame `t`: a monocular image `I_t`, angular velocity `ω_t` and acceleration `a_t` from the inertial sensors, and roll/pitch of the object. The camera intrinsics are known.
+**Given.** For each frame: a video frame and the gyroscope readings (plus the accelerometer, roll and pitch).
 
-**Output.** A unit vector `d_t` on the sphere `S²` in the body frame: the direction of the object's velocity, equivalently two angles relative to the optical axis. The speed itself is not estimated and is taken from an external source.
+**Find.** The direction of motion of the object in each frame.
 
-**Quality criteria.**
-- angular error with respect to a reference direction;
-- delay of the channel relative to a zero-phase reference;
-- jitter, the standard deviation of the derivative of the output (it goes into the control loop).
+**Criterion.** Minimal delay `τ` (how far the estimate lags behind the real direction) with jitter not larger than that of the vision-only estimate: `θ* = argmin τ(θ)` subject to `J(θ) ≤ J_vis`, where `θ` are the filter parameters. The delay is measured against a zero-phase reference, the jitter is the standard deviation of the derivative of the output (it goes into the control loop).
 
 **Difficulties.** The visual measurement is delayed by tracking and smoothing, contains rare outliers, and degenerates on frames with a dominant plane, weak parallax, or rotation that is hard to separate from translation. The inertial integral drifts within seconds, so it can only bridge the gaps between visual corrections.
 

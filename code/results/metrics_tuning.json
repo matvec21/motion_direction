@@ -1,0 +1,62 @@
+{
+  "warmup_frames": 15,
+  "frames": 3002,
+  "fps_video": 30.0,
+  "vision_updates": 2961,
+  "frames_without_correction": 40,
+  "gate_rejected": 26,
+  "wall_seconds": 40.8,
+  "channels": {
+    "vision": {
+      "x": {
+        "lag_ms": 333.3,
+        "rms_deg": 5.987621415743086,
+        "jitter_deg_s": 25.023215274336263
+      },
+      "y": {
+        "lag_ms": 366.7,
+        "rms_deg": 8.587822025599628,
+        "jitter_deg_s": 35.712239703171605
+      }
+    },
+    "fusion": {
+      "x": {
+        "lag_ms": 200.0,
+        "rms_deg": 6.009030960204556,
+        "jitter_deg_s": 20.192761183122872
+      },
+      "y": {
+        "lag_ms": 66.7,
+        "rms_deg": 9.181504500682516,
+        "jitter_deg_s": 40.01568811793714
+      }
+    },
+    "raw": {
+      "x": {
+        "lag_ms": 33.3,
+        "rms_deg": 10.484671084828829,
+        "jitter_deg_s": 470.8553238180693
+      },
+      "y": {
+        "lag_ms": 0.0,
+        "rms_deg": 16.09289539066608,
+        "jitter_deg_s": 727.3369437771115
+      }
+    }
+  },
+  "window": {
+    "name": "tuning",
+    "start": 60,
+    "end": 160
+  },
+  "fusion_params": {
+    "k_vis": 8.0,
+    "k_spd": 0.5,
+    "vision_lag": 0.0,
+    "speed_source": "ekf",
+    "gate": 45.0,
+    "meas_median": 5,
+    "use_accel": true,
+    "corr_max": 0.0
+  }
+}
